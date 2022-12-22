@@ -1,0 +1,27 @@
+{
+  "name": "speech_exe",
+  "version": "1.0.0",
+  "description": "program to enable opening of software from speech recognition",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cisnejo/speech_exe.git"
+  },
+  "author": "Joe c",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cisnejo/speech_exe/issues"
+  },
+  "devDependencies": {
+    "electron": "^22.0.0"
+  },
+  "dependencies": {
+    "python-shell": "^3.0.1"
+  },
+
+  "homepage": "https://github.com/cisnejo/speech_exe#readme"
+}
