@@ -20,30 +20,55 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+class PathCommands(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    command = db.Column(db.String(100), nullable=False)
+    path = db.Column(db.String(100), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now())
+
+    def __repr__(self):
+        return f"['id':{self.id},'command':{self.command},'path':{self.path}]"
+
+
 @app.route("/")
 def hello():
-    class PathCommands(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        command = db.Column(db.String(100), nullable=False)
-        path = db.Column(db.String(100), nullable=False)
-        created_at = db.Column(db.DateTime(timezone=True),
-                               server_default=func.now())
 
-        def __repr__(self):
-            return f'<PathCommands {self.firstname}>'
+    speech_text = speak()
+    return json.dumps({"speech_text": speech_text})
 
+
+@app.route("/create")
+def create():
     command = 'League of Legends'
     path = '/path/to/Lol'
-
     path_command = PathCommands(
         command=command,
         path=path
     )
     db.session.add(path_command)
     db.session.commit()
+    return json.dumps({"message": "command created"})
 
-    speech_text = speak()
-    return json.dumps({"speech_text": speech_text})
+
+@app.route("/delete/<command_id>")
+def delete(command_id):
+    command_id = command_id
+    record = PathCommands.query.filter_by(id=command_id).first()
+    if record:
+        PathCommands.query.filter_by(id=command_id).delete()
+        db.session.commit()
+        return json.dumps({"message": "deleted " + command_id})
+    else:
+        return json.dumps({"message": "No record found"})
+
+
+@app.route("/records")
+def get_records():
+    commands = PathCommands.query.all()
+    for command in commands:
+        print(command)
+    return json.dumps({"records": command})
 
 
 if __name__ == "__main__":
