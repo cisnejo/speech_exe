@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-  #click[data-status-ready = "true"] {
-    background-color: grey;
-  }
-  #click[data-status-ready = "false"]{
+  <style>
+    #click[data-status-ready="true"] {
+      background-color: grey;
+    }
+    #click[data-status-ready="false"] {
+    }
+  </style>
 
-  }
-</style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+  <body>
+    <button id="click" data-status-ready="true">Click to talk</button>
+    <div id="text"></div>
+  </body>
 
-<body>
-  <button id="click" data-status-ready="true"> Click to talk</button>
-  <div id="text"></div>
-</body>
-
-
-<script src="index.js"></script>
-
+  <script src="index.js"></script>
 </html>
