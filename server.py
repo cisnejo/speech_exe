@@ -62,16 +62,16 @@ def hello():
 
 @app.route("/create")
 def create():
-#     command = 'League of Legends'
-#     path = 'C:\Riot Games\Riot Client\RiotClientServices.exe'
-#     path_command = PathCommands(
-#         command=command,
-#         path=path
-#     )
-#     db.session.add(path_command)
-#     db.session.commit()
-#     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
-     return json.dumps({'sucess': "under construction"}), 200, {'ContentType': 'application/json'}
+    #     command = 'League of Legends'
+    #     path = 'C:\Riot Games\Riot Client\RiotClientServices.exe'
+    #     path_command = PathCommands(
+    #         command=command,
+    #         path=path
+    #     )
+    #     db.session.add(path_command)
+    #     db.session.commit()
+    #     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    return json.dumps({'sucess': "under construction"}), 200, {'ContentType': 'application/json'}
 
 
 @app.route("/delete/<command_id>")
@@ -90,7 +90,20 @@ def delete(command_id):
 def get_records():
     commands = PathCommands.query.all()
     serialized_list = json.dumps(commands, cls=AlchemyEncoder)
-    return json.dumps({"records": serialized_list})
+    return json.dumps(serialized_list)
+
+
+@app.route('/handle_data', methods=['POST'])
+def handle_data():
+    data = request.json
+    command = data["command_name"]
+    path = data["path"]
+    path_command = PathCommands(
+        command=command,
+        path=path)
+    db.session.add(path_command)
+    db.session.commit()
+    return json.dumps({"message": "data handled"})
 
 
 if __name__ == "__main__":
